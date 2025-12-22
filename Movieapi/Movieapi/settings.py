@@ -21,7 +21,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     "localhost",
-    "dreamybull-Backend.onrender.com",
+    "127.0.0.1",
+    "onrender.com",
 ]
 
 

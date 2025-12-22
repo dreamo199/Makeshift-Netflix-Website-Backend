@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 from datetime import timedelta
 from dotenv import load_dotenv
+import dj_database_url
 
 load_dotenv()
 
@@ -16,9 +17,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^m87olcxgtdel7o&&p6^yz*5)*+&-jc#tv4ff3$i*g%4+^1pph'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "dreamybull-Backend.onrender.com",
+]
 
 
 # Application definition
@@ -51,11 +55,16 @@ REST_FRAMEWORK = {
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CORS_ALLOWED_ORIGINS = [
+    "https://dreamybull-two.vercel.app/",
+]
+
 
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -84,6 +93,8 @@ TEMPLATES = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage",
+
 
 WSGI_APPLICATION = 'Movieapi.wsgi.application'
 
@@ -93,12 +104,10 @@ WSGI_APPLICATION = 'Movieapi.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'movie_db',
-        'HOST': 'localhost',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'PORT': '1000'
+       dj_database_url.config(
+           default="sqlite:///db.sqlite3",
+           conn_max_age=600
+       )
     }
 }
 

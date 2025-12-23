@@ -1,10 +1,7 @@
 from pathlib import Path
 import os
 from datetime import timedelta
-from dotenv import load_dotenv
 import dj_database_url
-
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +19,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    ".onrender.com",
+    "movieapi-4bgb.onrender.com",
 ]
 
 
@@ -85,8 +82,8 @@ TEMPLATES = [
     },
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage",
 
@@ -101,7 +98,8 @@ DATABASES = {
     'default': 
        dj_database_url.config(
            default="sqlite:///db.sqlite3",
-           conn_max_age=600
+           conn_max_age=600,
+           ssl_require=bool(os.environ.get("RENDER"))
        )
 }
 

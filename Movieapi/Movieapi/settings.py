@@ -82,8 +82,8 @@ TEMPLATES = [
     },
 ]
 
-MEDIA_URL = '/static/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage",
 
@@ -99,9 +99,10 @@ DATABASES = {
        dj_database_url.config(
            default="sqlite:///db.sqlite3",
            conn_max_age=600,
-           ssl_require=bool(os.environ.get("RENDER"))
        )
 }
+
+DATABASES['default'] = dj_database_url.parse("postgresql://dreamybull_db_user:x1xmJbdzHbQxOQbopG4fyPrdoAyTAmLJ@dpg-d54mldbuibrs738kdt1g-a.oregon-postgres.render.com/dreamybull_db")
 
 
 # Password validation
@@ -139,6 +140,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

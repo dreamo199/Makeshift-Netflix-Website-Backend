@@ -10,8 +10,8 @@ class Genre(models.Model):
 class Movie(models.Model):
     title = models.CharField(max_length=200)
     overview = models.TextField()
-    poster = models.ImageField()
-    backdrop = models.ImageField()
+    poster = models.ImageField(upload_to="movies/posters/")
+    backdrop = models.ImageField(upload_to="movies/backdrop/")
     release_date = models.DateField(blank=True, null=True)
     genre = models.ManyToManyField(Genre)
     rating = models.FloatField(blank=True, null=True)

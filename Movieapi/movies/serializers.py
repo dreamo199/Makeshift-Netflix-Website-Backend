@@ -8,6 +8,8 @@ class GenreSerializer(serializers.ModelSerializer):
 
 class MovieSerializer(serializers.ModelSerializer):
     genre = GenreSerializer(many=True)
+    poster = serializers.ImageField(use_url=True)
+    backdrop = serializers.ImageField(use_url=True)
 
     class Meta:
         model = Movie
